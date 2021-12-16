@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreUpdateStock;
 use App\Models\Stock;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class StockController extends Controller
 {
@@ -22,7 +23,15 @@ class StockController extends Controller
 
     public function store(StoreUpdateStock $request)
     {
-        Stock::create($request->all());
+        $data = $request->all();
+
+        if ($request->image->isValid()) {
+            $nameImage = $request->symbol . '.' . $request->image->getClientOriginalExtension();
+            $image = $request->image->storeAs('stocks', $nameImage, 'public');
+            $data['image'] = $image;
+        }
+
+        Stock::create($data);
 
         return redirect()
                 ->route('stocks.index')

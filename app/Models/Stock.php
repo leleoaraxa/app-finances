@@ -14,14 +14,6 @@ class Stock extends Model
         'name',
         'exchange',
         'currency',
-        'datetime',
-        'open',
-        'high',
-        'low',
-        'close',
-        'volume',
-        'previous_close',
-        'change',
-        'average_volume'
+        'image'
     ];
 }

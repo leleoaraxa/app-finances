@@ -24,19 +24,11 @@ class StoreUpdateStock extends FormRequest
     public function rules()
     {
         return [
-            'symbol' => ['required', 'string', 'min:1', 'max:10'],
-            'name' => ['required', 'string', 'min:1', 'max:100'],
-            'exchange' => ['required', 'string', 'min:1', 'max:20'],
-            'currency' => ['required', 'string', 'min:1', 'max:10'],
-            'datetime' => ['required', 'date'],
-            'open' => ['required', 'numeric'],
-            'high' => ['required', 'numeric'],
-            'low' => ['required', 'numeric'],
-            'close' => ['required', 'numeric'],
-            'volume' => ['required', 'numeric'],
-            'previous_close' => ['required', 'numeric'],
-            'change' => ['required', 'numeric'],
-            'average_volume' => ['required', 'numeric'],
+            'symbol' => ['required', 'min:1', 'max:10'],
+            'name' => ['nullable', 'max:100'],
+            'exchange' => ['nullable', 'max:20'],
+            'currency' => ['nullable', 'max:3'],
+            'image' => ['nullable', 'image'],
         ];
     }
 }

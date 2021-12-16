@@ -15,19 +15,11 @@ class CreateStocksTable extends Migration
     {
         Schema::create('stocks', function (Blueprint $table) {
             $table->id();
-            $table->string('symbol', 10);
-            $table->string('name', 100);
-            $table->string('exchange', 20);
-            $table->string('currency', 10);
-            $table->datetime('datetime');
-            $table->double('open',10,2);
-            $table->double('high',10,2);
-            $table->double('low',10,2);
-            $table->double('close',10,2);
-            $table->bigInteger('volume');
-            $table->double('previous_close',10,2);
-            $table->double('change',10,2);
-            $table->bigInteger('average_volume');
+            $table->string('symbol', 10)->unique();
+            $table->string('name', 100)->nullable();
+            $table->string('exchange', 20)->nullable();
+            $table->string('currency', 10)->nullable();
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }
