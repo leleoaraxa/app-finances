@@ -30,10 +30,20 @@ class StockController extends Controller
     public function show($symbol)
     {
         if (!$stock = Stock::where('symbol', $symbol)->first())
-        {
             return redirect()->route('stocks.index');
-        }
 
         return view('admin.stocks.show', compact('stock'));
+    }
+
+    public function destroy($symbol)
+    {
+        if (!$stock = Stock::where('symbol', $symbol)->first())
+            return redirect()->route('stocks.index');
+
+        $stock->delete();
+
+        return redirect()
+            ->route('stocks.index')
+            ->with('message', 'Stock Successfully Deleted');
     }
 }

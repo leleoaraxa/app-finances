@@ -5,6 +5,7 @@ use App\Http\Controllers\{
 };
 use Illuminate\Support\Facades\Route;
 
+Route::delete('/stocks/{symbol}', [StockController::class, 'destroy'])->name('stocks.destroy');
 Route::get('/stocks/{symbol}', [StockController::class, 'show'])->name('stocks.show');
 Route::post('/stocks', [StockController::class, 'store'])->name('stocks.store');
 Route::get('/stocks/create', [StockController::class, 'create'])->name('stocks.create');
