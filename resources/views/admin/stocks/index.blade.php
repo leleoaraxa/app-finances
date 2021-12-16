@@ -1,34 +1,40 @@
-<a href="{{ route('stocks.create') }}">Create a new Stock</a>
-<hr>
-@if (session('message'))
-    <div>
-        {{ session('message') }}
-    </div>
-@endif
+@extends('admin.layouts.app')
 
-<form action="{{ route('stocks.search') }}" method="post">
-    @csrf
-    <input type="text" name="search" placeholder="Search...">
-    <button type="submit">Filter</button>
-</form>
+@section('title', 'Stocks List')
 
-<h1>Stocks</h1>
+@section('content')
+    <a href="{{ route('stocks.create') }}">Create a new Stock</a>
+    <hr>
+    @if (session('message'))
+        <div>
+            {{ session('message') }}
+        </div>
+    @endif
 
-@foreach ($stocks as $stock)
-    <p>
-        {{ $stock->symbol }} - {{ $stock->name }}
-        [
-            <a href="{{ route('stocks.show', $stock->symbol) }}">View</a> |
-            <a href="{{ route('stocks.edit', $stock->symbol) }}">Edit</a>
-        ]
-    </p>
-@endforeach
+    <form action="{{ route('stocks.search') }}" method="post">
+        @csrf
+        <input type="text" name="search" placeholder="Search...">
+        <button type="submit">Filter</button>
+    </form>
 
-<hr>
+    <h1>Stocks</h1>
 
-@if (isset($filters))
-    {{ $stocks->appends($filters)->links() }}
-@else
-    {{ $stocks->links() }}
-@endif
+    @foreach ($stocks as $stock)
+        <p>
+            {{ $stock->symbol }} - {{ $stock->name }}
+            [
+                <a href="{{ route('stocks.show', $stock->symbol) }}">View</a> |
+                <a href="{{ route('stocks.edit', $stock->symbol) }}">Edit</a>
+            ]
+        </p>
+    @endforeach
 
+    <hr>
+
+    @if (isset($filters))
+        {{ $stocks->appends($filters)->links() }}
+    @else
+        {{ $stocks->links() }}
+    @endif
+
+@endsection
