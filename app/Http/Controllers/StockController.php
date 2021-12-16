@@ -26,4 +26,14 @@ class StockController extends Controller
 
         return redirect()->route('stocks.index');
     }
+
+    public function show($symbol)
+    {
+        if (!$stock = Stock::where('symbol', $symbol)->first())
+        {
+            return redirect()->route('stocks.index');
+        }
+
+        return view('admin.stocks.show', compact('stock'));
+    }
 }
