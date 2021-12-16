@@ -24,7 +24,7 @@ class StoreUpdateStock extends FormRequest
     public function rules()
     {
         return [
-            'symbol' => ['required', 'unique:stocks', 'string', 'min:1', 'max:10'],
+            'symbol' => ['required', 'string', 'min:1', 'max:10'],
             'name' => ['required', 'string', 'min:1', 'max:100'],
             'exchange' => ['required', 'string', 'min:1', 'max:20'],
             'currency' => ['required', 'string', 'min:1', 'max:10'],

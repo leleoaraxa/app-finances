@@ -5,11 +5,30 @@
         {{ session('message') }}
     </div>
 @endif
+
+<form action="{{ route('stocks.search') }}" method="post">
+    @csrf
+    <input type="text" name="search" placeholder="Search...">
+    <button type="submit">Filter</button>
+</form>
+
 <h1>Stocks</h1>
-<hr>
+
 @foreach ($stocks as $stock)
     <p>
         {{ $stock->symbol }} - {{ $stock->name }}
-        [ <a href="{{ route('stocks.show', $stock->symbol) }}">View</a> ]
+        [
+            <a href="{{ route('stocks.show', $stock->symbol) }}">View</a> |
+            <a href="{{ route('stocks.edit', $stock->symbol) }}">Edit</a>
+        ]
     </p>
 @endforeach
+
+<hr>
+
+@if (isset($filters))
+    {{ $stocks->appends($filters)->links() }}
+@else
+    {{ $stocks->links() }}
+@endif
+

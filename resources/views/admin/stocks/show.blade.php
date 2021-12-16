@@ -18,6 +18,6 @@
 
 <form action="{{ route('stocks.destroy', $stock->symbol) }}" method="post">
     @csrf
-    <input type="hidden" name="_method" value="DELETE">
+    @method('delete')
     <button type="submit">Delete Stock: {{ $stock->symbol }}</button>
 </form>
