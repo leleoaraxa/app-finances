@@ -21,7 +21,7 @@
 
     @foreach ($stocks as $stock)
         <p>
-            <img src="{{ url("storage/{$stock->image}") }}" alt="{{ $stock->symbol }}">
+            <img src="{{ url("storage/{$stock->image}") }}" alt="{{ $stock->symbol }}" style="height:24px;width:80px;">
             {{ $stock->symbol }} - {{ $stock->name }}
             [
                 <a href="{{ route('stocks.show', $stock->symbol) }}">View</a> |
