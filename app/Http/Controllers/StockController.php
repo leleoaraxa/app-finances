@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreUpdateStock;
 use App\Models\Stock;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class StockController extends Controller
@@ -51,6 +52,9 @@ class StockController extends Controller
         if (!$stock = Stock::where('symbol', $symbol)->first())
             return redirect()->route('stocks.index');
 
+        if (Storage::exists($stock->image))
+            Storage::delete($stock->image);
+
         $stock->delete();
 
         return redirect()
@@ -71,7 +75,18 @@ class StockController extends Controller
         if (!$stock = Stock::where('symbol', $symbol)->first())
             return redirect()->route('stocks.index');
 
-        $stock->update($request->all());
+        $data = $request->all();
+
+        if ($request->image && $request->image->isValid()) {
+            if (Storage::exists($stock->image))
+                Storage::delete($stock->image);
+
+            $nameImage = $request->symbol . '.' . $request->image->getClientOriginalExtension();
+            $image = $request->image->storeAs('stocks', $nameImage, 'public');
+            $data['image'] = $image;
+        }
+
+        $stock->update($data);
 
         return redirect()
                 ->route('stocks.index')

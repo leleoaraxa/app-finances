@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreUpdateStock extends FormRequest
@@ -23,13 +24,25 @@ class StoreUpdateStock extends FormRequest
      */
     public function rules()
     {
-        return [
-            'symbol' => ['required', 'min:1', 'max:10'],
+        $symbol = $this->segment(2);
+        $rules = [
+            'symbol' => [
+                'required',
+                'min:1',
+                'max:10',
+                "unique:stocks,symbol,{$symbol},symbol"
+            ],
             'name' => ['nullable', 'max:100'],
             'exchange' => ['nullable', 'max:20'],
             'currency' => ['nullable', 'max:3'],
             'image' => ['nullable', 'image'],
         ];
+
+        if ($this->method() == 'PUT') {
+            $rules['image'] = [ 'nullable','image'];
+        }
+
+        return $rules;
     }
 }
 
