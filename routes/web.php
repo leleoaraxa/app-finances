@@ -14,6 +14,12 @@ Route::get('/stocks/{symbol}', [StockController::class, 'show'])->name('stocks.s
 Route::post('/stocks', [StockController::class, 'store'])->name('stocks.store');
 Route::get('/stocks', [StockController::class, 'index'])->name('stocks.index');
 
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
 Route::get('/', function () {
     return view('welcome');
 });
+
+require __DIR__.'/auth.php';
